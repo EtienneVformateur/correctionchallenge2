@@ -1,3 +1,4 @@
+import 'package:correctionchallenge2/story.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,12 +23,28 @@ class HomeApp extends StatefulWidget {
 }
 
 class _HomeAppState extends State<HomeApp> {
+  Story s1 = Story(
+      "Vous venez de crevez un pneu à St André. Vous n'avez pas de téléphone vous décidez de faire du stop. Une ford fiesta rouge s'arrête et le conducteur vous demande si vous voulez qu'il vous dépanne.",
+      "Vous lui remerciez et vous montez dans la voiture",
+      "Vous lui demandez s'il n'est pas un meurtrier avant !");
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(flex: 4, child: Center(child: Text("Texte de la question"))),
+        Expanded(
+          flex: 4,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Center(
+              child: Text(
+                s1.question,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ),
+        ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
@@ -38,7 +55,7 @@ class _HomeAppState extends State<HomeApp> {
               onPressed: () {
                 print("choix1");
               },
-              child: Text("Choix1", style: TextStyle(color: Colors.white)),
+              child: Text(s1.choice1, style: TextStyle(color: Colors.white)),
             ),
           ),
         ),
@@ -52,7 +69,7 @@ class _HomeAppState extends State<HomeApp> {
               onPressed: () {
                 print("choix2");
               },
-              child: Text("Choix2", style: TextStyle(color: Colors.white)),
+              child: Text(s1.choice2, style: TextStyle(color: Colors.white)),
             ),
           ),
         )
