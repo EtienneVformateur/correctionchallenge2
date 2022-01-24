@@ -1,6 +1,7 @@
-import 'package:correctionchallenge2/story.dart';
+import 'package:correctionchallenge2/storybrain.dart';
 import 'package:flutter/material.dart';
 
+StoryBrain sb = StoryBrain();
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -23,10 +24,6 @@ class HomeApp extends StatefulWidget {
 }
 
 class _HomeAppState extends State<HomeApp> {
-  Story s1 = Story(
-      "Vous venez de crevez un pneu à St André. Vous n'avez pas de téléphone vous décidez de faire du stop. Une ford fiesta rouge s'arrête et le conducteur vous demande si vous voulez qu'il vous dépanne.",
-      "Vous lui remerciez et vous montez dans la voiture",
-      "Vous lui demandez s'il n'est pas un meurtrier avant !");
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,7 +35,7 @@ class _HomeAppState extends State<HomeApp> {
             padding: const EdgeInsets.all(12.0),
             child: Center(
               child: Text(
-                s1.question,
+                sb.getQuestion(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20),
               ),
@@ -53,23 +50,32 @@ class _HomeAppState extends State<HomeApp> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.green)),
               onPressed: () {
-                print("choix1");
+                setState(() {
+                  sb.suivant(1);
+                });
               },
-              child: Text(s1.choice1, style: TextStyle(color: Colors.white)),
+              child:
+                  Text(sb.getChoice1(), style: TextStyle(color: Colors.white)),
             ),
           ),
         ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
-            child: TextButton(
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.red)),
-              onPressed: () {
-                print("choix2");
-              },
-              child: Text(s1.choice2, style: TextStyle(color: Colors.white)),
+            child: Visibility(
+              visible: sb.buttonVisibleOrNot(),
+              child: TextButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.red)),
+                onPressed: () {
+                  setState(() {
+                    sb.suivant(2);
+                  });
+                },
+                child: Text(sb.getChoice2(),
+                    style: TextStyle(color: Colors.white)),
+              ),
             ),
           ),
         )
